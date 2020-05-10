@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TodoApi.Models;
+using TodoApi.Telemetry;
 
 namespace TodoApi
 {
@@ -36,6 +39,10 @@ namespace TodoApi
                 opt.UseInMemoryDatabase("UserDbContext");
             });
             services.AddControllers();
+            services.AddApplicationInsightsTelemetry();
+            services.AddSingleton<ITelemetryInitializer, MyCustomTelemetryInitializer>();
+            services.AddSingleton<TelemetryClient>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

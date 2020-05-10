@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.ApplicationInsights;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace TodoApi.Controllers
     public class AuthController : ControllerBase
     {
         private UserDbContext _context;
-        public AuthController(UserDbContext context)
+        public AuthController(UserDbContext context, TelemetryClient telemetry)
         {
             this._context = context;
             if (context.Users.Count() == 0)
@@ -23,6 +24,8 @@ namespace TodoApi.Controllers
                 context.Users.Add(new User { Id=2, Username="john", Password="doe", IsAdmin=false });
 
                 context.SaveChanges();
+
+                telemetry.TrackEvent("Users were initialized..");
             }
         }
 
