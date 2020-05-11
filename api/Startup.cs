@@ -42,7 +42,7 @@ namespace TodoApi
             services.AddApplicationInsightsTelemetry();
             services.AddSingleton<ITelemetryInitializer, MyCustomTelemetryInitializer>();
             services.AddSingleton<TelemetryClient>();
-
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +52,13 @@ namespace TodoApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(cfg =>
+            {
+                cfg.AllowAnyOrigin();
+                cfg.AllowAnyMethod();
+                cfg.AllowAnyHeader();
+            });
 
             app.UseHttpsRedirection();
 

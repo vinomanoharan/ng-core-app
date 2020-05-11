@@ -1,0 +1,19 @@
+<nav class="navbar navbar-dark bg-dark mb-5">
+    <a class="navbar-brand" routerLink="/home">Todo Items</a>
+    <div class="navbar-expand mr-auto">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" routerLink="home" routerLinkActive="active">Home</a>
+            <a class="nav-item nav-link" *ngIf="isAuthenticated" routerLink="todos" routerLinkActive="active">Todos</a>
+        </div>
+    </div>
+    <div class="navbar-expand ml-auto navbar-nav">
+        <div class="navbar-nav" *ngIf="!isAuthenticated else logout"> 
+            <a class="nav-item nav-link" routerLink="login" routerLinkActive="active">Login</a>
+        </div>
+        <ng-template #logout>
+            <div class="navbar-nav"> 
+                <a class="nav-item nav-link" routerLink="logout" routerLinkActive="active">Logout</a>
+            </div>
+        </ng-template>
+    </div>
+</nav>

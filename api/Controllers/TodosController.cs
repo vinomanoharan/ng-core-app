@@ -16,24 +16,24 @@ namespace TodoApi.Controllers
         public TodosController(TodoDbContext context)
         {
             _context = context;
-            if (context.TodoItems.Count() == 0)
-            {
-                context.TodoItems.Add(new TodoItem
-                {
-                    Id = 1,
-                    Name = "Wakup at 6",
-                    Description = "This is a wake up at 6 description",
-                    IsCompleted = false
-                });
-                context.TodoItems.Add(new TodoItem
-                {
-                    Id = 2,
-                    Name = "Exercise at 7",
-                    Description = "Exercise at 7",
-                    IsCompleted = false
-                });
-                context.SaveChanges();
-            }
+            //if (context.TodoItems.Count() == 0)
+            //{
+            //    context.TodoItems.Add(new TodoItem
+            //    {
+            //        Id = 1,
+            //        Name = "Wakup at 6",
+            //        Description = "This is a wake up at 6 description",
+            //        IsCompleted = false
+            //    });
+            //    context.TodoItems.Add(new TodoItem
+            //    {
+            //        Id = 2,
+            //        Name = "Exercise at 7",
+            //        Description = "Exercise at 7",
+            //        IsCompleted = false
+            //    });
+            //    context.SaveChanges();
+            //}
         }
 
         [HttpGet]
@@ -51,14 +51,12 @@ namespace TodoApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<TodoItem>> Put(int id, TodoItem item)
+        public async Task<ActionResult<TodoItem>> Put(int id)
         {
             var toUpdate = await _context.TodoItems.FirstOrDefaultAsync(t => t.Id == id);
             if(toUpdate != null)
             {
-                toUpdate.Description = item.Description;
-                toUpdate.Name = item.Name;
-                toUpdate.IsCompleted = item.IsCompleted;
+                toUpdate.IsCompleted = true;
                 
                 await _context.SaveChangesAsync();
                 return Ok(toUpdate);

@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="table-wrapper">
+        <div class="table-title">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Todo List</h2>
+                </div>
+                <div class="col-sm-6">
+                    <button class="btn btn-primary" (click)="add()">Add Todo</button>
+                </div>
+            </div>
+        </div>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let todo of todos">
+                    <td>{{todo.name}}</td>
+                    <td>{{todo.description}}</td>
+                    <td>
+                        <button class="btn btn-success" (click)="completeTodo(todo.id)"
+                            [disabled]="todo.isCompleted">{{ todo.isCompleted ? 'Completed' : 'Complete' }}</button>
+                        <button class="btn btn-danger" (click)="deleteTodo(todo.id)">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="addMode" class="editarea mt-3">
+        <div class="form-group">
+            <div>
+                <label for="name">Name</label>
+                <input [(ngModel)]="name" class="form-control" id="name" />
+            </div>
+            <div>
+                <label for="description">Description</label>
+                <input [(ngModel)]="description" class="form-control" id="description" />
+            </div>
+        </div>
+        <button (click)="cancel()" class="btn btn-secondary mr-3">Cancel</button>
+        <button (click)="save()" class="btn btn-primary">Save</button>
+    </div>
+</div>

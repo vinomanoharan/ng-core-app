@@ -1,0 +1,14 @@
+<div class="col-4 offset-2 text-center">
+    <div *ngIf="isAuthenticated else loginUser">
+        <h3>Welcome {{ user.username }} </h3>
+        <button class="btn btn-primary">Logout</button>
+    </div>
+    <ng-template #loginUser>
+        <form #loginForm="ngForm" class="form-signin" (ngSubmit)="onSubmit(loginForm)" >
+            <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+            <input ngModel name="username" class="form-control mb-3" placeholder="Username" autofocus>
+            <input ngModel name="password" class="form-control mb-3" placeholder="Password" type="password">
+            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+        </form>
+    </ng-template>
+</div>

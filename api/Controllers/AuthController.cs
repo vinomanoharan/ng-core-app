@@ -41,7 +41,8 @@ namespace TodoApi.Controllers
                 return NotFound();
             }
 
-            return Ok();
+            dbUser.Password = "";
+            return Ok(dbUser);
         }
     }
 }
