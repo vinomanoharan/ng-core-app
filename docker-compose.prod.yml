@@ -1,0 +1,36 @@
+version: "3.7"
+
+services:
+  angular:
+    container_name: angular
+    image: angular
+    build:
+      context: .
+      dockerfile: dockerfile.prod
+    ports:
+      - "8080:80"
+    depends_on:
+      - aspnetcore
+    networks:
+      - app-network
+
+  aspnetcore:
+    container_name: todoapi
+    image: todoapi
+    build:
+      context: ./server
+      dockerfile: dockerfile.prod
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "8000:80"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+#docker-compose -f docker-compose.prod.yml build
+#docker-compose -f docker-compose.prod.yml up
+#docker-compose -f docker-compose.prod.yml down

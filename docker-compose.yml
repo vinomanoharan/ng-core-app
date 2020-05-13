@@ -1,0 +1,33 @@
+version: '3.7'
+
+services: 
+    angular:
+      container_name: angular
+      image: angular
+      build:
+        context: . 
+        dockerfile: dockerfile
+      volumes: 
+        - ./dist:/usr/share/nginx/html
+      ports:
+        - "8080:80"
+      environment: 
+        - NODE_ENV=development
+        - API_URL=http://localhost:8000/api
+      networks: 
+        - app-network
+    
+    aspnetcore:
+      container_name: todoapi
+      image: todoapi
+      build: 
+        context: ./server
+        dockerfile: dockerfile
+      ports: 
+        - "8000:80"
+      networks: 
+        - app-network
+
+networks:
+  app-network:
+    driver: bridge
