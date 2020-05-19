@@ -4,7 +4,10 @@
 
 export const environment = {
   production: false,
-  baseAppUrl: "http://localhost:8000/api"
+  baseAppUrl: "http://localhost:8000/api",
+  appInsights: {
+    instrumentationKey: '2882bd10-2051-446a-bb2f-00456637aba3'
+  }
 };
 
 /*

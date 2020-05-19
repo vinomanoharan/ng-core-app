@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { UserModel } from '../shared/user.model';
+import { AppInsightsService } from '../shared/app-insights.service';
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,13 @@ import { UserModel } from '../shared/user.model';
 export class LoginComponent implements OnInit {
 
 
-  constructor(private auth: AuthService) { }
+  constructor(private auth: AuthService, private appInsights : AppInsightsService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(f: NgForm) {
+    this.appInsights.instance.trackEvent({name: 'Login'});
     this.auth.login(f.value.username, f.value.password);
   }
 

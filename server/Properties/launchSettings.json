@@ -18,7 +18,7 @@
     "todoapi": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://*:5000/",
+      "applicationUrl": "http://*:8000/",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

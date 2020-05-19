@@ -6,20 +6,24 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using TodoApi.Models;
+using Microsoft.ApplicationInsights;
 
 namespace TodoApi.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly TelemetryClient _telemetry;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, TelemetryClient telemetry)
         {
             _logger = logger;
+            _telemetry = telemetry;
         }
 
         public IActionResult Index()
         {
+            this._telemetry.TrackEvent("HomePageRequested");
             return View();
         }
 

@@ -12,6 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TodoApi.Models;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
 
 namespace TodoApi
 {
@@ -27,6 +29,7 @@ namespace TodoApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationInsightsTelemetry();
             services.AddDbContext<TodoDbContext>(opt =>
             {
                 opt.UseInMemoryDatabase("TodoDbContext");
@@ -38,6 +41,8 @@ namespace TodoApi
             services.AddControllers();
             services.AddCors();
             services.AddControllersWithViews();
+            services.AddSingleton<TelemetryClient>();
+            services.AddSingleton<ITelemetryInitializer, MyTelemetryInitializer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
